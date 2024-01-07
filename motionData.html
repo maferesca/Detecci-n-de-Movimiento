@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="motionData">0</p>
+
+<script>
+// Establecer el umbral de movimiento
+const motionThreshold = 10;
+
+// Comprobar si la API del acelerómetro está disponible
+if ('Accelerometer' in window) {
+  let accelerometer = new Accelerometer({frequency: 60});
+
+  accelerometer.addEventListener('reading', () => {
+    // Comprueba si se ha superado el umbral de movimiento
+    if (Math.abs(accelerometer.x) > motionThreshold || Math.abs(accelerometer.y) > motionThreshold || Math.abs(accelerometer.z) > motionThreshold) {
+      document.getElementById("motionData").innerHTML = "1";
+    } else {
+      document.getElementById("motionData").innerHTML = "0";
+    }
+  });
+
+  accelerometer.start();
+} else {
+  document.getElementById("motionData").innerHTML = "API del acelerómetro no disponible en este navegador";
+}
+</script>
+
+</body>
+</html>
